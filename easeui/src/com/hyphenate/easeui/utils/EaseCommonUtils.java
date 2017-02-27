@@ -149,7 +149,6 @@ public class EaseCommonUtils {
 	/**
      * set initial letter of according user's nickname( username if no nickname)
      * 
-     * @param username
      * @param user
      */
     public static void setUserInitialLetter(EaseUser user) {
@@ -190,7 +189,6 @@ public class EaseCommonUtils {
         }
         user.setInitialLetter(letter);
     }
-    // 自己服务器的数据库
     /**
      * set initial letter of according user's nickname( username if no nickname)
      *
@@ -254,7 +252,6 @@ public class EaseCommonUtils {
 
     /**
      * \~chinese
-     * 判断是否是免打扰的消息,如果是app中应该不要给用户提示新消息
      * @param message
      * return
      *
