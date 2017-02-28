@@ -2,10 +2,12 @@ package cn.ucai.live.utils;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.support.v4.app.FragmentActivity;
 
 
 import cn.ucai.live.I;
 import cn.ucai.live.R;
+import cn.ucai.live.ui.activity.LoginActivity;
 import cn.ucai.live.ui.activity.MainActivity;
 
 
@@ -29,10 +31,8 @@ public class MFGT {
         context.overridePendingTransition(R.anim.push_right_in, R.anim.push_right_out);
     }
 
-
-    public static void gotoMainActivity(Activity activity) {
-        startActivity(activity, new Intent(activity, MainActivity.class)
-                .putExtra(I.BACK_MAIN_FORM_CHAT, true));
+    public static void gotoLoginCleanTask(FragmentActivity activity) {
+        startActivity(activity, new Intent(activity, LoginActivity.class)
+                .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
     }
-
 }
