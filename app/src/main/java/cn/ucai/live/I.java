@@ -282,6 +282,11 @@ public interface I {
     String REQUEST_DOWNLOAD_LOCATION = "downloadLocation";
 
     String BACK_MAIN_FORM_CHAT = "back_main_form_chat";
+    /**
+     * 客户端发送的创建直播室
+     */
+    String REQUEST_CREATE_CHATROOM = "live/createChatRoom";
+
 
     int REQUESTCODE_PICK = 1;
 
