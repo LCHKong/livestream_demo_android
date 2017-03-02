@@ -17,14 +17,12 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import cn.ucai.live.data.TestDataRepository;
 import cn.ucai.live.ui.GridMarginDecoration;
 
 import com.bumptech.glide.Glide;
@@ -32,6 +30,7 @@ import com.hyphenate.EMChatRoomChangeListener;
 import com.hyphenate.chat.EMChatRoom;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMCursorResult;
+import com.hyphenate.easeui.utils.EaseUserUtils;
 import com.hyphenate.exceptions.HyphenateException;
 
 import cn.ucai.live.R;
@@ -39,10 +38,8 @@ import cn.ucai.live.R;
 import cn.ucai.live.data.model.LiveRoom;
 import cn.ucai.live.utils.L;
 
-import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -161,6 +158,8 @@ public class LiveListFragment extends Fragment {
                 mSrl.setRefreshing(true);
                 mtvRefresh.setVisibility(View.VISIBLE);
                 cursor = null;
+                isLoading = true;
+                chatRoomList.clear();
                 loadAndShowData();
             }
         });
@@ -223,7 +222,7 @@ public class LiveListFragment extends Fragment {
                                     hasMoreData = false;
                                     footLoadingLayout.setVisibility(View.VISIBLE);
                                     footLoadingPB.setVisibility(View.GONE);
-                                    footLoadingText.setText(getResources().getString(R.string.no_more_messages));
+                                    footLoadingText.setText("没有更多数据了...");
                                 }
                                 adapter.notifyDataSetChanged();
                             }
@@ -258,7 +257,7 @@ public class LiveListFragment extends Fragment {
             liveRoom.setAudienceNum(room.getAffiliationsCount());
             liveRoom.setId(room.getId());
             liveRoom.setChatroomId(room.getId());
-            liveRoom.setCover(R.drawable.test1);
+            liveRoom.setCover(EaseUserUtils.getAppUserInfo(room.getOwner()).getAvatar());
             liveRoom.setAnchorId(room.getOwner());
             roomList.add(liveRoom);
         }
@@ -286,11 +285,10 @@ public class LiveListFragment extends Fragment {
                 public void onClick(View v) {
                     final int position = holder.getAdapterPosition();
                     if (position == RecyclerView.NO_POSITION) return;
-
-                    LiveRoom rooom = liveRoomList.get(position);
-                    if (rooom.getAnchorId().equals(EMClient.getInstance().getCurrentUser())) {
-                        context.startActivity(new Intent(context, StartLiveActivity.class)
-                                .putExtra("liveId", rooom.getId()));
+                    LiveRoom room = liveRoomList.get(position);
+                    if (room.getAnchorId().equals(EMClient.getInstance().getCurrentUser())) {
+                        context.startActivity(new Intent(context,StartLiveActivity.class)
+                                .putExtra("liveId",room.getId()));
                     } else {
                         context.startActivity(new Intent(context, LiveDetailsActivity.class)
                                 .putExtra("liveroom", liveRoomList.get(position)));
