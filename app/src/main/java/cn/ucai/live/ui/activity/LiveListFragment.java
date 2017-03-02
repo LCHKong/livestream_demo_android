@@ -193,7 +193,6 @@ public class LiveListFragment extends Fragment {
             public void run() {
                 try {
                     isLoading = true;
-                    pagenum += 1;
                     final EMCursorResult<EMChatRoom> result = EMClient.getInstance().
                             chatroomManager().fetchPublicChatRoomsFromServer(pagesize, cursor);
                     //get chat room list
@@ -247,7 +246,7 @@ public class LiveListFragment extends Fragment {
     }
 
     /**
-     * 生成测试数据
+     * 将聊天室转换为直播间
      */
     public static List<LiveRoom> getLiveRoomList(List<EMChatRoom> chatRooms) {
         List<LiveRoom> roomList = new ArrayList<>();
@@ -255,7 +254,7 @@ public class LiveListFragment extends Fragment {
             LiveRoom liveRoom = new LiveRoom();
             liveRoom.setName(room.getName());
             liveRoom.setAudienceNum(room.getAffiliationsCount());
-            liveRoom.setId(room.getId());
+            liveRoom.setId(room.getOwner());
             liveRoom.setChatroomId(room.getId());
             liveRoom.setCover(EaseUserUtils.getAppUserInfo(room.getOwner()).getAvatar());
             liveRoom.setAnchorId(room.getOwner());
@@ -287,8 +286,8 @@ public class LiveListFragment extends Fragment {
                     if (position == RecyclerView.NO_POSITION) return;
                     LiveRoom room = liveRoomList.get(position);
                     if (room.getAnchorId().equals(EMClient.getInstance().getCurrentUser())) {
-                        context.startActivity(new Intent(context,StartLiveActivity.class)
-                                .putExtra("liveId",room.getId()));
+                        context.startActivity(new Intent(context, StartLiveActivity.class)
+                                .putExtra("liveId", room.getId()));
                     } else {
                         context.startActivity(new Intent(context, LiveDetailsActivity.class)
                                 .putExtra("liveroom", liveRoomList.get(position)));

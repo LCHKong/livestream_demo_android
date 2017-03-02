@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,6 +30,7 @@ import cn.ucai.live.data.TestDataRepository;
 import cn.ucai.live.data.model.LiveRoom;
 import cn.ucai.live.data.model.LiveSettings;
 import cn.ucai.live.utils.CommonUtils;
+import cn.ucai.live.utils.L;
 import cn.ucai.live.utils.Log2FileUtil;
 
 import cn.ucai.live.R;
@@ -231,8 +233,11 @@ public class StartLiveActivity extends LiveBaseActivity
                         public void onSuccess(String s) {
                             pd.dismiss();
                             boolean success = false;
+                            Log.e(TAG, "createView,s =" + s);
+
                             if (s != null) {
                                 String id = ResultUtils.getEMResultFromJson(s);
+                                Log.e(TAG, "createView,id =" + id);
                                 if (id != null) {
                                     success = true;
                                     chatroomId = id;
