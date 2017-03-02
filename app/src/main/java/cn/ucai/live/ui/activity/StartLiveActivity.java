@@ -119,10 +119,10 @@ public class StartLiveActivity extends LiveBaseActivity
 //        liveId = TestDataRepository.getLiveRoomId(EMClient.getInstance().getCurrentUser());
 //        chatroomId = TestDataRepository.getChatRoomId(EMClient.getInstance().getCurrentUser());
 //        anchorId = EMClient.getInstance().getCurrentUser();
-        String id = getIntent().getStringExtra("liveId");
-        if (id != null && !id.equals("")) {
-            liveId = id;
-            chatroomId = id;
+        LiveRoom liveRoom = getIntent().getParcelableExtra("liveroom");
+        if (liveRoom != null) {
+            liveId = liveRoom.getId();
+            chatroomId = liveRoom.getChatroomId();
         } else {
             liveId = EMClient.getInstance().getCurrentUser();
         }
@@ -214,7 +214,7 @@ public class StartLiveActivity extends LiveBaseActivity
     @OnClick(R.id.btn_start)
     void startLive() {
         //demo为了测试方便，只有指定的账号才能开启直播
-        if (chatroomId == null && chatroomId.equals("")) {
+        if (chatroomId == null || chatroomId.equals("")) {
             CommonUtils.showShortToast("获取直播数据失败!");
             pd = new ProgressDialog(StartLiveActivity.this);
             pd.setMessage("创建直播...");
