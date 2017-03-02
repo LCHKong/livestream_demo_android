@@ -1,7 +1,6 @@
 package cn.ucai.live.data;
 
 import android.content.Context;
-import android.view.ViewGroup;
 
 import com.hyphenate.chat.EMGroup;
 import com.hyphenate.easeui.domain.User;
@@ -12,7 +11,6 @@ import cn.ucai.live.I;
 import cn.ucai.live.utils.MD5;
 import cn.ucai.live.utils.OkHttpUtils;
 import cn.ucai.live.utils.OnCompleteListener;
-import okhttp3.OkUrlFactory;
 
 
 /**
@@ -176,6 +174,13 @@ public class NetDao {
         utils.setRequestUrl(I.REQUEST_DELETE_CHATROOM)
                 .addParam("auth", "1IFgE")
                 .addParam("chatRoomId", chatroomId)
+                .targetClass(String.class)
+                .execute(listener);
+    }
+
+    public static void loadAllGift(Context context, OnCompleteListener<String> listener) {
+        OkHttpUtils<String> utils = new OkHttpUtils<>(context);
+        utils.setRequestUrl(I.REQUEST_ALL_GIFTS)
                 .targetClass(String.class)
                 .execute(listener);
     }
