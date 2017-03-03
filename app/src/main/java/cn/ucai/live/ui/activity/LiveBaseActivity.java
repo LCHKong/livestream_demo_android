@@ -494,6 +494,7 @@ public abstract class LiveBaseActivity extends BaseActivity {
             public void onClick(View v) {
                 int id = (int) v.getTag();
                 sendGiftMsg(id);
+                dialog.dismiss();
             }
         });
         dialog.show(getSupportFragmentManager(), "RoomGiftListDialog");
