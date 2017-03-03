@@ -24,6 +24,8 @@ import com.hyphenate.easeui.utils.EaseUserUtils;
 import com.hyphenate.easeui.widget.EaseImageView;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -85,6 +87,14 @@ public class RoomGiftListDialog extends DialogFragment {
         while (iterator.hasNext()) {
             mGiftlist.add(iterator.next().getValue());
         }
+
+        Collections.sort(mGiftlist, new Comparator<Gift>() {
+            @Override
+            public int compare(Gift lhs, Gift rhs) {
+                return lhs.getId().compareTo(rhs.getId());
+            }
+        });
+        adapter.notifyDataSetChanged();
     }
 
 
@@ -145,7 +155,7 @@ public class RoomGiftListDialog extends DialogFragment {
             Gift gift = mList.get(position);
             holder.tvGiftName.setText(gift.getGname());
             holder.tvGiftPrice.setText(String.valueOf(gift.getGprice()));
-            EaseUserUtils.setAppUserAvatarByPath(mContext,gift.getGurl(),holder.ivGiftThumb,I.TYPE_GIFT);
+            EaseUserUtils.setAppUserAvatarByPath(mContext, gift.getGurl(), holder.ivGiftThumb, I.TYPE_GIFT);
             holder.layoutGift.setTag(gift.getId());
         }
 
