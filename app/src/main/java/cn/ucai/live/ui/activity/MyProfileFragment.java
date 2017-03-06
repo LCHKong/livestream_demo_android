@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import cn.ucai.live.LiveConstants;
@@ -140,5 +141,10 @@ public class MyProfileFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @OnClick(R.id.layout_change)
+    public void myChange() {
+        MFGT.gotoChange(getActivity());
     }
 }

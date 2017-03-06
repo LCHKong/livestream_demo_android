@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentActivity;
 
 
 import cn.ucai.live.R;
+import cn.ucai.live.ui.activity.ChangeActivity;
 import cn.ucai.live.ui.activity.LoginActivity;
 
 
@@ -32,5 +33,9 @@ public class MFGT {
     public static void gotoLoginCleanTask(FragmentActivity activity) {
         startActivity(activity, new Intent(activity, LoginActivity.class)
                 .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+    }
+
+    public static void gotoChange(Activity activity) {
+        startActivity(activity, ChangeActivity.class);
     }
 }
